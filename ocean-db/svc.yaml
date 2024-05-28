@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prac-svc
+spec:
+  selector:
+    app: prac-deploy  # This should match the labels in your nginx deployment
+  ports:
+    - protocol: TCP
+      port: 80  # Port your nginx is listening on inside the pod
+      targetPort: 80  # Port your nginx is listening on inside the pod
+  type: ClusterIP  # You can also use LoadBalancer here if Minikube supports it
+

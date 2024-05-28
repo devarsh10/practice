@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nodemailer-backend
+  name: nodemailer-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodemailer-backend
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nodemailer-backend
+    spec:
+      containers:
+      - image: devarsh10/ocean-nodemailer:0.1
+        name: ocean-nodemailer
+        ports:
+        - containerPort: 5000
+        command: ["node","app.js"]
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocean-nodemailer-svc
+spec:
+  type: NodePort
+  selector:
+    app: nodemailer-backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+      nodePort: 32007

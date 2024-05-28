@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocean-web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocean-web
+  template:
+    metadata:
+      labels:
+        app: ocean-web
+    spec:
+      containers:
+        - name: ocean-web
+          image: devarsh10/ocean-web:0.1
+          ports:
+            - containerPort: 3000
+          command: ["npm","start"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocean-web-service
+spec:
+  selector:
+    app: ocean-web  
+  ports:
+    - protocol: TCP
+      port: 3000       
+      targetPort: 3000 
+      nodePort: 30007  
+  type: NodePort    
+ 

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: db-deploy
+  name: db-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: db-deploy
+    spec:
+      containers:
+      - image: devarsh10/ocean-json:0.1
+        name: ocean-json
+        ports:
+        - containerPort: 3000
+        resources: {}
+        command: ["/bin/sh"]
+        args: ["-c","json-server --watch db.json --port 8000 --host 0.0.0.0 & json-server --watch db2.json --port 8001 --host 0.0.0.0 & json-server --watch db3.json --port 8002 --host 0.0.0.0"]
+status: {}
