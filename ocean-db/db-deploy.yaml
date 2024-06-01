@@ -26,3 +26,28 @@ spec:
         command: ["/bin/sh"]
         args: ["-c","json-server --watch db.json --port 8000 --host 0.0.0.0 & json-server --watch db2.json --port 8001 --host 0.0.0.0 & json-server --watch db3.json --port 8002 --host 0.0.0.0"]
 status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocean-json-service
+spec:
+  selector:
+    app: db-deploy
+  ports:
+    - name: port-8000
+      protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 31008
+    - name: port-8001
+      protocol: TCP
+      port: 8001
+      targetPort: 8001
+      nodePort: 31009
+    - name: port-8002
+      protocol: TCP
+      port: 8002
+      targetPort: 8002
+      nodePort: 31010
+  type: NodePort

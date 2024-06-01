@@ -18,7 +18,7 @@ spec:
         app: nodemailer-backend
     spec:
       containers:
-      - image: devarsh10/ocean-nodemailer:0.1
+      - image: devarsh10/ocean-nodemailer:0.2
         name: ocean-nodemailer
         ports:
         - containerPort: 5000
